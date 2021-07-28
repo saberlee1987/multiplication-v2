@@ -34,12 +34,10 @@ public class WelComeController {
         MessageDto messageDto =new MessageDto();
         messageDto.setMessage(message);
         try {
-
             log.info("Response for welcome ====> {}",objectMapper.writeValueAsString(messageDto));
         }catch (Exception ex){
             log.error("Error for write log response method ");
         }
-
         return ResponseEntity.ok(messageDto);
     }
 
