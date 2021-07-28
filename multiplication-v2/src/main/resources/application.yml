@@ -1,0 +1,21 @@
+server:
+  port: 8001
+  jetty:
+    threads:
+      acceptors: 5
+      max: 300
+      min: 50
+      selectors: 5
+      max-queue-capacity: 2000
+  error:
+    include-message: always
+    include-binding-errors: always
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+    session:
+      cookie:
+        http-only: true
+      timeout: 15
+      tracking-modes: COOKIE
