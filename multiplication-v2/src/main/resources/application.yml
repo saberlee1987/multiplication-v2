@@ -19,3 +19,32 @@ server:
         http-only: true
       timeout: 15
       tracking-modes: COOKIE
+
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:multiplication
+    username: sa
+    password: sa
+    hikari:
+      connection-timeout: 10000
+      max-lifetime: 10000
+      maximum-pool-size: 70
+      minimum-idle: 5000
+      pool-name: multiplication-pool
+
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true

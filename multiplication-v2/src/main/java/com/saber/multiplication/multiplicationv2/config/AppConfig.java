@@ -1,8 +1,10 @@
 package com.saber.multiplication.multiplicationv2.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,5 +18,10 @@ public class AppConfig {
         objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE,false);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
         return objectMapper;
+    }
+
+    @Bean
+    public Module hibernateModule(){
+        return new Hibernate5Module();
     }
 }
