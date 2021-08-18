@@ -1,5 +1,6 @@
 package com.saber.multiplication.multiplicationv2.services.impl;
 
+import com.saber.multiplication.multiplicationv2.client.GamificationServiceClient;
 import com.saber.multiplication.multiplicationv2.dto.ChallengeAttempt;
 import com.saber.multiplication.multiplicationv2.dto.ChallengeAttemptDto;
 import com.saber.multiplication.multiplicationv2.dto.StatsUserAttemptDto;
@@ -7,24 +8,24 @@ import com.saber.multiplication.multiplicationv2.dto.User;
 import com.saber.multiplication.multiplicationv2.repositories.ChallengeAttemptRepository;
 import com.saber.multiplication.multiplicationv2.repositories.UserRepository;
 import com.saber.multiplication.multiplicationv2.services.ChallengeService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ChallengeServiceImpl implements ChallengeService {
     private static final Logger log = LoggerFactory.getLogger(ChallengeServiceImpl.class);
 
     private final UserRepository userRepository;
     private final ChallengeAttemptRepository challengeAttemptRepository;
-
-    public ChallengeServiceImpl(UserRepository userRepository, ChallengeAttemptRepository challengeAttemptRepository) {
-        this.challengeAttemptRepository = challengeAttemptRepository;
-        this.userRepository = userRepository;
-    }
+    private final GamificationServiceClient gamificationServiceClient;
 
     @Override
     @Transactional
@@ -44,7 +45,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         challengeAttempt.setFactorB(challengeAttemptDto.getFactorB());
         challengeAttempt.setResultAttempt(challengeAttemptDto.getGuess());
         challengeAttempt.setUser(user);
-        return this.challengeAttemptRepository.save(challengeAttempt);
+
+        ChallengeAttempt storeAttempt= this.challengeAttemptRepository.save(challengeAttempt);
+
+        boolean status = gamificationServiceClient.sendAttempt(storeAttempt);
+
+        log.info("Gamification Service response {}",status);
+        return storeAttempt;
     }
 
     @Override
@@ -53,6 +60,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         List<ChallengeAttempt> attempts = this.challengeAttemptRepository.findTop10ByUserAliasOrderByIdDesc(userAlias);
         StatsUserAttemptDto statsUserAttemptDto = new StatsUserAttemptDto();
         statsUserAttemptDto.setAttempts(attempts);
+        log.info("attempts Response ======> {}",statsUserAttemptDto);
         return statsUserAttemptDto;
     }
 }

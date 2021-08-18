@@ -16,6 +16,7 @@
 
     <modules>
         <module>multiplication-v2</module>
+        <module>gimification-v2</module>
     </modules>
 
     <build>

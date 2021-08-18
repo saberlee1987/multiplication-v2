@@ -48,3 +48,15 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         show_sql: true
         format_sql: true
+  restTemplate:
+     connectTimeout: 5000
+     readTimeout : 5000
+     maxConnectionPerRoute: 700
+     maxConnectionTotal: 1000
+
+
+service:
+  gamification:
+    url : http://localhost
+    port: 8002
+    path: /gamification/attempts

@@ -1,0 +1,77 @@
+server:
+  port: 8002
+  jetty:
+    threads:
+      acceptors: 5
+      max: 300
+      min: 50
+      selectors: 5
+      max-queue-capacity: 2000
+  error:
+    include-message: always
+    include-binding-errors: always
+  servlet:
+    session:
+      cookie:
+        http-only: true
+      tracking-modes: cookie
+      timeout: 15
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:gamification
+    username: sa
+    password: sa
+    hikari:
+      maximum-pool-size: 80
+      minimum-idle: 35
+      max-lifetime: 10000
+      connection-timeout: 7000
+      idle-timeout: 7000
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        show_sql: true
+        format_sql: true
+
+
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+
+
+
+
+
+service:
+  badgeProcessor:
+    luckyFactor : 42
+    silverNumber: 150
+    goldNumber: 400
+    bronzeNumber: 50
+
+
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    jmx:
+      exposure:
+        include: "*"

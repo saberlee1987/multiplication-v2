@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.badge {
+  font-size: x-small;
+  border: 2px solid dodgerblue;
+  border-radius: 4px;
+  padding: 0.2em;
+  margin: 0.1em;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

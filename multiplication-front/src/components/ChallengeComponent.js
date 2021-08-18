@@ -3,6 +3,7 @@ import ApiClient from "../services/ApiClient";
 import '../bootstrap.css'
 import '../App.css'
 import LastAttemptsComponent from "./LastAttemptsComponent";
+import LeaderBoardComponent from "./LeaderBoardComponent";
 
 class ChallengeComponent extends React.Component {
 
@@ -141,6 +142,9 @@ class ChallengeComponent extends React.Component {
                                 this.state.lastAttempts.length > 0 &&
                                 <LastAttemptsComponent lastAttempts={this.state.lastAttempts}/>
                             }
+                        </div>
+                        <div className="col">
+                            <LeaderBoardComponent/>
                         </div>
                     </div>
                 </div>
