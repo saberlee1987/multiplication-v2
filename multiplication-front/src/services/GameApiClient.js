@@ -1,6 +1,5 @@
 class GameApiClient {
 
-
     static SERVER_URL = "http://localhost:8002";
     static GET_LEADER_BOARD ="/gamification/leaders";
 
