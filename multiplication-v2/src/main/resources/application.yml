@@ -54,6 +54,16 @@ spring:
      maxConnectionPerRoute: 700
      maxConnectionTotal: 1000
 
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+    exchange:
+      attempts: attempt.topic
+    routing:
+      key: attempt.correct
+
 
 service:
   gamification:

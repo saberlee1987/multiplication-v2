@@ -5,6 +5,7 @@ import com.saber.multiplication.multiplicationv2.dto.ChallengeAttempt;
 import com.saber.multiplication.multiplicationv2.dto.ChallengeAttemptDto;
 import com.saber.multiplication.multiplicationv2.dto.StatsUserAttemptDto;
 import com.saber.multiplication.multiplicationv2.dto.User;
+import com.saber.multiplication.multiplicationv2.event.ChallengeEventPublisher;
 import com.saber.multiplication.multiplicationv2.repositories.ChallengeAttemptRepository;
 import com.saber.multiplication.multiplicationv2.repositories.UserRepository;
 import com.saber.multiplication.multiplicationv2.services.ChallengeService;
@@ -26,6 +27,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final UserRepository userRepository;
     private final ChallengeAttemptRepository challengeAttemptRepository;
     private final GamificationServiceClient gamificationServiceClient;
+    private final ChallengeEventPublisher eventPublisher;
 
     @Override
     @Transactional
@@ -48,9 +50,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         ChallengeAttempt storeAttempt= this.challengeAttemptRepository.save(challengeAttempt);
 
-        boolean status = gamificationServiceClient.sendAttempt(storeAttempt);
+        eventPublisher.challengeSolved(storeAttempt);
+       // boolean status = gamificationServiceClient.sendAttempt(storeAttempt);
 
-        log.info("Gamification Service response {}",status);
+       // log.info("Gamification Service response {}",status);
         return storeAttempt;
     }
 

@@ -5,6 +5,7 @@ import com.saber.multiplication.multiplicationv2.dto.ChallengeAttempt;
 import com.saber.multiplication.multiplicationv2.dto.ChallengeAttemptDto;
 import com.saber.multiplication.multiplicationv2.dto.StatsUserAttemptDto;
 import com.saber.multiplication.multiplicationv2.dto.User;
+import com.saber.multiplication.multiplicationv2.event.ChallengeEventPublisher;
 import com.saber.multiplication.multiplicationv2.repositories.ChallengeAttemptRepository;
 import com.saber.multiplication.multiplicationv2.repositories.UserRepository;
 import com.saber.multiplication.multiplicationv2.services.ChallengeService;
@@ -33,12 +34,14 @@ public class ChallengeServiceTest {
     private ChallengeAttemptRepository challengeAttemptRepository;
     @Mock
     private GamificationServiceClient serviceClient;
+    @Mock
+    private ChallengeEventPublisher eventPublisher;
 
     private static final Logger log = LoggerFactory.getLogger(ChallengeServiceTest.class);
 
     @BeforeEach
     public void before(){
-        this.challengeService = new ChallengeServiceImpl(userRepository,challengeAttemptRepository,serviceClient);
+        this.challengeService = new ChallengeServiceImpl(userRepository,challengeAttemptRepository,serviceClient,eventPublisher);
 
 
     }
